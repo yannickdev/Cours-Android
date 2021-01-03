@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="15dp"
+    android:paddingTop="5dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="5dp">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/favourite_radio_image"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center_vertical"
+        app:civ_border_color="#000000"
+        app:civ_border_width="1dp" />
+
+    <TextView
+        android:id="@+id/favourite_title"
+        android:layout_width="175dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/favourite_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:text="X"
+        android:textColor="#000000" />
+</LinearLayout>

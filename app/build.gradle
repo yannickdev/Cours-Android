@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.yannick.radioo"
+        minSdkVersion 15
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+//    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
+    implementation 'androidx.navigation:navigation-fragment:2.0.0'
+    implementation 'androidx.navigation:navigation-ui:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    //testImplementation 'junit:junit:4.12'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.googlecode.soundlibs:tritonus-all:0.3.7.2'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
+    implementation group: 'com.cybozu.labs', name: 'langdetect', version: '1.1-20120112'
+    implementation 'com.detectlanguage:detectlanguage:1.1.0'
+    implementation group: 'joda-time', name: 'joda-time', version: '2.3'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    //annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    // implementation 'org.opencv:OpenCV-Android:3.1.0'
+
+    implementation 'com.android.support:design:29.1.0'
+
+
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.7'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    //implementation group: 'org.bytedeco', name: 'leptonica', version: '1.78.0-1.5.2'
+
+    implementation 'com.google.code.gson:gson:2.8.2'
+    annotationProcessor 'org.projectlombok:lombok:1.16.16'
+
+    // https://mvnrepository.com/artifact/org.bytedeco/leptonica
+    //implementation group: 'org.bytedeco', name: 'leptonica', version: '1.78.0-1.5.2'
+
+    //implementation 'com.rmtheis:tess-two:9.0.0'
+
+
+    //implementation 'com.github.Lucem-Anb:android-text-scanner:0.1.0'
+    //implementation 'com.github.priyankvex:Easy-Ocr-Scanner-Android'
+
+
+    // https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-ui
+    //  implementation group: 'org.deeplearning4j', name: 'deeplearning4j-ui_2.10', version: '0.7.2'
+
+    configurations.all {
+        resolutionStrategy.force 'junit:junit:4.12'
+
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '26.1.0'
+                }
+            }
+        }
+    }
+
+}

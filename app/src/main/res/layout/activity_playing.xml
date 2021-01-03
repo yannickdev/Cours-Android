@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:minWidth="200dp"
+        android:minHeight="200dp"
+        android:textColor="#FFFFFF"
+        android:background="#000000"
+        android:layout_centerInParent="true">
+        <ImageView
+            android:id="@+id/text"
+            android:textColor="#FFFFFF"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/radio_default" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/buttonWrapper"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <ImageButton
+            android:id="@+id/btnPrevious"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_gravity="bottom|start|center_horizontal"
+            android:layout_weight="1"
+            android:background="@null"
+            android:baselineAlignBottom="false"
+            android:scaleType="fitXY"
+            android:src="@drawable/btn_previous" />
+
+        <ImageButton
+            android:id="@+id/btnBackward"
+            android:src="@drawable/btn_backward"
+
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:scaleType = "fitXY"
+            android:layout_weight="1"
+            android:background="@null"/>
+        <ImageButton
+            android:id="@+id/btnPlay"
+            android:src="@drawable/btn_play"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:scaleType="fitXY"
+            android:background="@null"/>
+
+        <ImageButton
+            android:id="@+id/btnForward"
+            android:src="@drawable/btn_forward"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:scaleType = "fitXY"
+            android:background="@null"/>
+        <ImageButton
+            android:id="@+id/btnNext"
+            android:src="@drawable/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:scaleType = "fitXY"
+            android:background="@null"/>
+        &lt;!&ndash;<Button
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Zomg" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="BBQ" />&ndash;&gt;
+    </LinearLayout>
+</RelativeLayout>-->
+<!--LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<TextView
+android:id="@+id/textView1"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:gravity="center"
+android:text="cow"
+android:layout_weight="0"
+android:textAppearance="?android:attr/textAppearanceLarge" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center|bottom"
+    android:orientation="horizontal"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:weightSum="5"
+    android:background="@color/colorPrimaryDark">
+    &lt;!&ndash; Previous Button &ndash;&gt;
+
+    &lt;!&ndash; Backward Button &ndash;&gt;
+    <ImageButton
+        android:id="@+id/btnPrevious"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_gravity="bottom|start|center_horizontal"
+        android:layout_weight="1"
+        android:background="@null"
+        android:baselineAlignBottom="false"
+
+        android:scaleType="fitXY"
+        android:src="@drawable/btn_previous" />
+
+    <ImageButton
+        android:id="@+id/btnBackward"
+        android:src="@drawable/btn_backward"
+        android:layout_gravity="center_horizontal|center"
+
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:scaleType = "fitXY"
+        android:layout_weight="1"
+        android:background="@null"/>
+    &lt;!&ndash; Play Button &ndash;&gt;
+    <ImageButton
+        android:id="@+id/btnPlay"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center|center_horizontal"
+        android:layout_weight="1"
+
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/btn_play" />
+    &lt;!&ndash; Forward Button &ndash;&gt;
+    <ImageButton
+        android:id="@+id/btnForward"
+        android:src="@drawable/btn_forward"
+        android:layout_gravity="center_horizontal|center"
+
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:scaleType = "fitXY"
+        android:layout_weight="1"
+        android:background="@null"/>
+    &lt;!&ndash; Next Button &ndash;&gt;
+    <ImageButton
+        android:id="@+id/btnNext"
+        android:src="@drawable/btn_next"
+        android:layout_gravity="center_horizontal|center"
+
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:scaleType = "fitXY"
+        android:layout_weight="1"
+        android:background="@null"/>
+</LinearLayout>
+    </LinearLayout>-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PlayingActivity">
+
+    <Button android:id="@+id/btn_play"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="start_service"/>
+
+    <Button android:id="@+id/btn_stop_playing"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="stop_service"/>
+
+    <Button android:id="@+id/btn_mute"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="mute"/>
+
+    <Button android:id="@+id/btn_unmute"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="unmute"/>
+
+    <Button android:id="@+id/btn_record"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="record!"/>
+
+    <TextView
+        android:id="@+id/recording_state"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <Button android:id="@+id/btn_stop_record"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="stop recording!"/>
+
+    <Button android:id="@+id/btn_add_favourite"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="add to favourites!"/>
+
+    <Button android:id="@+id/btn_go_to_favourite"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="go to favourites!"/>
+
+    <Button android:id="@+id/btn_go_to_podcasts"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="go to podcasts!"/>
+
+    <ImageView
+        android:id="@+id/player_control0"
+        android:layout_gravity="right"
+        android:layout_width="@dimen/image_size"
+        android:layout_height="@dimen/image_size"/>
+
+</LinearLayout>
+
+
+
+
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:id="@+id/root_layout"-->
+<!--    android:layout_width="fill_parent"-->
+<!--    android:layout_height="fill_parent"-->
+<!--    android:orientation="vertical" >-->
+
+<!--    <Button android:id="@+id/btn_play"-->
+<!--        android:layout_width="270dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="start_service"/>-->
+
+<!--    <Button android:id="@+id/btnPauseService"-->
+<!--        android:layout_width="270dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="pause_service"/>-->
+
+<!--    <Button android:id="@+id/btnStopService"-->
+<!--        android:layout_width="270dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="stop_service"/>-->
+
+<!--</RelativeLayout>-->
+
+
+
+<!--
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:background="#93cca0" >
+
+    <Button
+        android:id="@+id/btn_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play Audio From URL"
+        android:layout_margin="25dp"
+        />
+
+</LinearLayout>-->
