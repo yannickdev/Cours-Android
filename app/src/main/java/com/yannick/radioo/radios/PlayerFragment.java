@@ -53,6 +53,7 @@ import java.util.TimerTask;
 public class PlayerFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     private TextView mTextViewRecordingState;
+    private TextView stationName;
     private InputStream input;
     private long startTime;
     private SpeechRecognizer sr;
@@ -60,6 +61,7 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
     private String saveFilePath;
     private String saveFaviconPath;
     private boolean isRecording = false;
+
 
     private Menu menu;
 
@@ -74,6 +76,8 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
     private Station station;
     private Podcast podcast;
     private Favourite favourite;
+
+    StationDAO datasource;
 
     private OnFragmentInteractionListener mListener;
 
@@ -91,6 +95,7 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
         Bundle args = new Bundle();
         args.putParcelable("STATION", station);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -101,10 +106,21 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
         setHasOptionsMenu(true);
         context=this.getActivity();
 
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View fragment = inflater.inflate(R.layout.fragment_player, null);
+        stationName = fragment.findViewById(R.id.station_name);
+        stationName.setText("Truc!");
+        System.out.println("updatePlayerView textview: "+stationName.getText());
+
+        datasource= new StationDAO(context);
+        datasource.open();
+
+       // updatePlayerView();
 
 //        if(mPlayer!=null&&mPlayer.isPlaying()){
 //            mPlayer.stop();
 //        }
+
 
         if (getArguments() != null) {
             stop();
@@ -116,9 +132,11 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
             favourite = getArguments().getParcelable("FAVOURITE");
             System.out.println("FAVOURITE ON CREATE: "+station);
 
+            //updatePlayerView();
             if(station!=null){
 
                 System.out.println("ok entre station");
+
                 play();
             }
 
@@ -171,6 +189,36 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
         BottomNavigationView toolbar = rootView.findViewById(R.id.bottom_navigation);
         toolbar.setOnNavigationItemSelectedListener(this);
 
+
+        Log.v("saveFaviconPath: ",""+saveFaviconPath);
+        // PlayingActivity.this.station.setFavicon(saveFaviconPath);
+
+
+
+
+       TextView textView = rootView.findViewById(R.id.station_name);
+//        System.out.println("updatePlayerView textview: "+textView.getText());
+        if(station!=null)  {
+            textView.setText(station.getName());
+
+            Favourite f = new Favourite(station);
+            if(datasource.existInDb(f)){
+                toolbar.getMenu().findItem(R.id.favourite).setVisible(false);
+            }
+        }
+        else if(podcast!=null)  {
+            textView.setText(podcast.getTitle());
+            toolbar.getMenu().findItem(R.id.record).setVisible(false);
+            toolbar.getMenu().findItem(R.id.favourite).setVisible(false);
+
+        }
+        else if(favourite!=null)  {
+            textView.setText(favourite.getName());
+            toolbar.getMenu().findItem(R.id.favourite).setVisible(false);
+        }
+
+        //updatePlayerView();
+
         return rootView;
     }
 
@@ -208,8 +256,8 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
                 downloadTask.execute(new String[] { station.getFavicon() });
                 Log.v("AddFavouriteTask",station.getStationuuid());
 
-                StationDAO datasource = new StationDAO(context);
-                datasource.open();
+//                StationDAO datasource = new StationDAO(context);
+//                datasource.open();
                 Log.v("saveFaviconPath: ",""+saveFaviconPath);
                 // PlayingActivity.this.station.setFavicon(saveFaviconPath);
 
@@ -220,7 +268,7 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
                 }
                 return true;
         }
-        return false;
+        return true;
     }
 
     private class RecordAudioStreamTask extends AsyncTask<String, Void, String> {
@@ -313,7 +361,9 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
 
                         podcast= new Podcast();
                         podcast.setId(0);
+                        if(station!=null)
                         podcast.setTitle(station.getName()+(new Date()).toString()+"."+station.getCodec().toLowerCase());
+
                         podcast.setStation(null);
                         podcast.setDate(new Date().toString());
                         podcast.setFileUrl(saveFilePath);
@@ -342,6 +392,7 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
         @Override
         protected void onPostExecute(String result) {
             Log.v("RESULT",result);
+            //isRecording = false;
             //mTextViewRecordingState.setText(result);
         }
     }
@@ -471,8 +522,7 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
 
     public static String getNow() {
         String formattedDate = "";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss",
-                Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.US);
         formattedDate = sdf.format(new Date());
         return formattedDate;
     }
@@ -505,7 +555,21 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
             mPlayer.stop();
         }
     }
+
+
+    public void updatePlayerView(){
+
+//        LayoutInflater inflater = getActivity().getLayoutInflater();
+//        View fragment = inflater.inflate(R.layout.fragment_player, null);
+//        TextView textView = fragment.findViewById(R.id.station_name);
+//        System.out.println("updatePlayerView textview: "+textView.getText());
+//        if(station!=null)  stationName.setText(station.getName());
+//        else if(podcast!=null)  stationName.setText(podcast.getStation().getName());
+//        else if(favourite!=null)  stationName.setText(favourite.getName());
+    }
+
     public void play(){
+
         try {
             String audioUrl =null;
             if(station!=null){
@@ -531,6 +595,8 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
                     mPlayer.start();
                 }
             });
+
+
         }
 
 
@@ -544,19 +610,24 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
     }
 
     private void togglePlayPause(MenuItem item) throws IOException {
+        System.out.println("okentre togglePlayPause");
         if (mPlayer != null) {
             if (mPlayer.isPlaying()) {
-                stop();
+                System.out.println("ok is playing");
                 item.setIcon(R.drawable.ic_play_circle_outline_black_24dp);
+                stop();
+
             } else {
-                play();
+                System.out.println("is not playing");
                 item.setIcon(R.drawable.ic_pause_circle_outline_black_24dp);
+                play();
             }
         }
     }
 
     private void toggleRecordStop(MenuItem item) throws IOException {
-        Log.v("togglePlayPause ","entre");
+        Log.v("toggleRecordStop ","entre: "+isRecording);
+
 
         if (!isRecording) {
             item.setIcon(R.drawable.ic_stop_black_24dp);
@@ -569,15 +640,31 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
                     PlayerFragment.DownloadImageStreamTask task = new PlayerFragment.DownloadImageStreamTask();
                     task.execute(new String[] { station.getFavicon() });
                 }
-
             }
 
+            if(favourite!=null){
+                PlayerFragment.RecordAudioStreamTask audiotask = new PlayerFragment.RecordAudioStreamTask();
+                audiotask.execute(new String[] { favourite.getUrl() });
 
+                if(!favourite.getFavicon().isEmpty()){
+                    PlayerFragment.DownloadImageStreamTask task = new PlayerFragment.DownloadImageStreamTask();
+                    task.execute(new String[] { favourite.getFavicon() });
+                }
+
+            }
+            isRecording = true;
         } else {
             item.setIcon(R.drawable.ic_fiber_manual_record_red_24dp);
             PlayerFragment.StopRecordAudioStreamTask audiotask = new PlayerFragment.StopRecordAudioStreamTask();
-            audiotask.execute(new String[] { station.getUrl() });
-
+            String url;
+            if(station!=null) {
+                url = station.getUrl();
+            }
+            else{
+                url = favourite.getUrl();
+            }
+            audiotask.execute(new String[]{url});
+            isRecording = false;
         }
     }
 

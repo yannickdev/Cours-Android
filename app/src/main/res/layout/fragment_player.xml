@@ -9,9 +9,10 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/station_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Player fragment" />
+        />
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,10 +24,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:itemBackground="@color/colorPrimary"
+            android:background="@android:color/black"
+
             app:itemIconTint="@android:color/white"
             app:itemTextColor="@android:color/white"
             app:menu="@menu/bottom_nav_menu" />
+        <!--            app:itemBackground="@color/item_shape_fill_color"-->
     </RelativeLayout>
 
 </FrameLayout>

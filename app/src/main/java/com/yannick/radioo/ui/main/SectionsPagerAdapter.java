@@ -30,16 +30,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
 //            case 0:
 //                return VocalUIFragment.newInstance();
-            case 0:
-                return RadioFragment.newInstance(1);
-            case 1:
-                return PodcastFragment.newInstance(1);
-            case 2:
-                return PlayerFragment.newInstance(null);
-            case 3:
-                return FavouriteFragment.newInstance(1);
-            default:
-                return null;
+            case 0: return RadioFragment.newInstance(1);
+            case 1: return PodcastFragment.newInstance(1);
+            case 2: return PlayerFragment.newInstance(null);
+            case 3: return FavouriteFragment.newInstance(1);
+            default: return null;
         }
     }
 
