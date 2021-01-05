@@ -14,14 +14,14 @@ import static com.yannick.radioo.SQLiteHelper.COLUMN_UUID;
 import static com.yannick.radioo.SQLiteHelper.TABLE_STATIONS;
 import static com.yannick.radioo.SQLiteHelper.COLUMN_UUID;
 
-public class StationDAO {
+public class FavouriteDAO {
     // Champs de la base de données
     private SQLiteDatabase database;
     private SQLiteHelper dbHelper;
     private String[] allColumns = { COLUMN_UUID, SQLiteHelper.COLUMN_NAME,SQLiteHelper.COLUMN_COUNTRY,SQLiteHelper.COLUMN_COUNTRY_CODE,SQLiteHelper.COLUMN_URL,SQLiteHelper.COLUMN_FAVICON
             };
 
-    public StationDAO(Context context) {
+    public FavouriteDAO(Context context) {
         dbHelper = new SQLiteHelper(context, SQLiteHelper.DATABASE_NAME, null, SQLiteHelper.DATABASE_VERSION);
 
     }

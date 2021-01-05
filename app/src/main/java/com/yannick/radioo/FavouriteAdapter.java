@@ -62,7 +62,7 @@ public class FavouriteAdapter extends BaseAdapter {
         holder.deleteTextView.setText("X" );
 
         holder.deleteTextView.setOnClickListener(new View.OnClickListener() {
-            StationDAO datasource = new StationDAO(mContext);
+            FavouriteDAO datasource = new FavouriteDAO(mContext);
 
             @Override
             public void onClick(View v) {

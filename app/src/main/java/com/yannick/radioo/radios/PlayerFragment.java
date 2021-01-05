@@ -32,7 +32,7 @@ import com.yannick.radioo.Podcast;
 import com.yannick.radioo.PodcastDAO;
 import com.yannick.radioo.R;
 import com.yannick.radioo.Station;
-import com.yannick.radioo.StationDAO;
+import com.yannick.radioo.FavouriteDAO;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -77,7 +77,7 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
     private Podcast podcast;
     private Favourite favourite;
 
-    StationDAO datasource;
+    FavouriteDAO datasource;
 
     private OnFragmentInteractionListener mListener;
 
@@ -109,13 +109,10 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View fragment = inflater.inflate(R.layout.fragment_player, null);
         stationName = fragment.findViewById(R.id.station_name);
-        stationName.setText("Truc!");
-        System.out.println("updatePlayerView textview: "+stationName.getText());
 
-        datasource= new StationDAO(context);
+        datasource= new FavouriteDAO(context);
         datasource.open();
 
-       // updatePlayerView();
 
 //        if(mPlayer!=null&&mPlayer.isPlaying()){
 //            mPlayer.stop();
@@ -194,9 +191,7 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
         // PlayingActivity.this.station.setFavicon(saveFaviconPath);
 
 
-
-
-       TextView textView = rootView.findViewById(R.id.station_name);
+        TextView textView = rootView.findViewById(R.id.station_name);
 //        System.out.println("updatePlayerView textview: "+textView.getText());
         if(station!=null)  {
             textView.setText(station.getName());
@@ -280,6 +275,8 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
 
                 @Override
                 public void run() {
+
+                    if(station ==null) station = favourite;
                     try  {
                         File directory = new File(context.getFilesDir()+File.separator+"MyPodcasts");
 
@@ -291,7 +288,12 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
 
                             String path=context.getFilesDir()+File.separator+"MyPodcasts";//+File.separator+station.getName()+(new Date()).toString()+"."+station.getCodec().toLowerCase()
 
-                            String streamURL=station.getUrl();
+                            String streamURL = null;
+                            if(station!=null)
+                                streamURL=station.getUrl();
+                            else
+                                streamURL=favourite.getUrl();
+
                             URL url = new URL(streamURL);
                             HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
                             int responseCode = httpConn.getResponseCode();
@@ -308,7 +310,11 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
                                     fileName = streamURL.substring(streamURL.lastIndexOf("/") + 1, streamURL.length());
                                 }
 
-                                saveFilePath = path + File.separator + fileName+getNow()+"."+station.getCodec();
+                                if(station!=null)
+                                    saveFilePath = path + File.separator + fileName+getNow()+"."+station.getCodec();
+                                else
+                                    saveFilePath = path + File.separator + fileName+getNow()+"."+station.getCodec();
+
                                 if(input!=null) input.close();
                                 input = httpConn.getInputStream();
 
@@ -359,10 +365,18 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
                         PodcastDAO datasource = new PodcastDAO(context);
                         datasource.open();
 
+
                         podcast= new Podcast();
                         podcast.setId(0);
-                        if(station!=null)
-                        podcast.setTitle(station.getName()+(new Date()).toString()+"."+station.getCodec().toLowerCase());
+
+
+                        if(station !=null){
+                            podcast.setTitle(station.getName()+(new Date()).toString());
+                                    //+"."+station.getCodec().toLowerCase());
+                        }
+                        else {
+                            podcast.setTitle(favourite.getName() + (new Date()).toString() + "." + favourite.getCodec().toLowerCase());
+                        }
 
                         podcast.setStation(null);
                         podcast.setDate(new Date().toString());
@@ -494,7 +508,7 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
 
             Favourite f = new Favourite(s);
 
-            StationDAO datasource = new StationDAO(context);
+            FavouriteDAO datasource = new FavouriteDAO(context);
             datasource.open();
             Log.v("saveFaviconPath: ",""+saveFaviconPath);
 

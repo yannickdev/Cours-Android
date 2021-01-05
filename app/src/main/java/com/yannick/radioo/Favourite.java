@@ -5,25 +5,16 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Favourite implements Parcelable {
+import java.util.Date;
 
-    private String name;
-    private String stationuuid;
-    private String country;
-    private String countrycode;
-    private String state;
-    private String url;
-    private String favicon;
-    private int votes;
-    private String codec;
-    //et date de creation du favori
+public class Favourite extends Station implements Parcelable {
 
-
-//    @SerializedName("tags")
-//    private List<String> tags;
+    private Date creationDate;
+    private Integer order;
 
 
     public Favourite() {
+        super();
     }
 
     public Favourite(Station station) {
@@ -37,27 +28,22 @@ public class Favourite implements Parcelable {
         this.setUrl(station.getUrl());
         this.setVotes(station.getVotes());
     }
+
     protected Favourite(Parcel in) {
-        name = in.readString();
-        stationuuid = in.readString();
-        country = in.readString();
-        countrycode = in.readString();
-        state = in.readString();
-        url = in.readString();
-        favicon = in.readString();
-        votes=in.readInt();
-        codec = in.readString();
+        super(in);
+        this.setCreationDate(((java.util.Date) in.readSerializable()));
+        this.setOrder(in.readInt());
     }
 
     public static final Creator<Station> CREATOR = new Creator<Station>() {
         @Override
-        public Station createFromParcel(Parcel in) {
-            return new Station(in);
+        public Favourite createFromParcel(Parcel in) {
+            return new Favourite(in);
         }
 
         @Override
-        public Station[] newArray(int size) {
-            return new Station[size];
+        public Favourite[] newArray(int size) {
+            return new Favourite[size];
         }
     };
 
@@ -87,90 +73,29 @@ public class Favourite implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel in, int flags) {
-        in.writeString(name);
-        in.writeString(stationuuid);
-        in.writeString(country);
-        in.writeString(countrycode);
-        in.writeString(state);
-        in.writeString(url);
-        in.writeString(favicon);
-        in.writeInt(votes);
-        in.writeString(codec);
+        super.writeToParcel(in,flags);
+        in.writeSerializable(this.getCreationDate());
+        in.writeInt(this.getOrder());
+
     }
 
-    public String getName() {
-        return name;
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Integer getOrder() {
+        return order;
     }
 
-    public String getStationuuid() {
-        return stationuuid;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public void setStationuuid(String stationuuid) {
-        this.stationuuid = stationuuid;
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCountrycode() {
-        return countrycode;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public void setCountrycode(String countrycode) {
-        this.countrycode = countrycode;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getFavicon() {
-        return favicon;
-    }
-
-    public void setFavicon(String favicon) {
-        this.favicon = favicon;
-    }
-
-    public int getVotes() {
-        return votes;
-    }
-
-    public void setVotes(int votes) {
-        this.votes = votes;
-    }
-
-    public String getCodec() {
-        return codec;
-    }
-
-    public void setCodec(String codec) {
-        this.codec = codec;
-    }
-
-   /* public List<String> getTags() {
+    /* public List<String> getTags() {
         return tags;
     }
 

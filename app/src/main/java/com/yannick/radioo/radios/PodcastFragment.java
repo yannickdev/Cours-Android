@@ -12,11 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.yannick.radioo.Favourite;
 import com.yannick.radioo.Podcast;
 import com.yannick.radioo.PodcastDAO;
 import com.yannick.radioo.R;
-import com.yannick.radioo.Station;
 
 import java.util.List;
 

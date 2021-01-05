@@ -14,8 +14,7 @@ import android.view.ViewGroup;
 
 import com.yannick.radioo.Favourite;
 import com.yannick.radioo.R;
-import com.yannick.radioo.Station;
-import com.yannick.radioo.StationDAO;
+import com.yannick.radioo.FavouriteDAO;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class FavouriteFragment extends Fragment {
 
     private Context context;
 
-    private StationDAO datasource;
+    private FavouriteDAO datasource;
 
     public FavouriteFragment() {
     }
@@ -46,7 +45,7 @@ public class FavouriteFragment extends Fragment {
         super.onCreate(savedInstanceState);
         context=this.getContext();
 
-        datasource = new StationDAO(context);
+        datasource = new FavouriteDAO(context);
         datasource.open();
 
         if (getArguments() != null) {

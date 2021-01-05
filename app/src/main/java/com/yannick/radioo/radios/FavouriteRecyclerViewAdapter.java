@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.yannick.radioo.Favourite;
 import com.yannick.radioo.R;
-import com.yannick.radioo.StationDAO;
+import com.yannick.radioo.FavouriteDAO;
 
 import java.io.File;
 import java.util.List;
@@ -56,7 +56,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
         });
 
         holder.deleteTextView.setOnClickListener(new View.OnClickListener() {
-            StationDAO datasource = new StationDAO(context);
+            FavouriteDAO datasource = new FavouriteDAO(context);
             @Override
             public void onClick(View v) {
                 Log.v("delete","ok delete favourite");
