@@ -75,7 +75,7 @@ public class Favourite extends Station implements Parcelable {
     public void writeToParcel(Parcel in, int flags) {
         super.writeToParcel(in,flags);
         in.writeSerializable(this.getCreationDate());
-        in.writeInt(this.getOrder());
+        //in.writeInt(this.getOrder());
 
     }
 

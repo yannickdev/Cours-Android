@@ -65,6 +65,8 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
 
     private Menu menu;
 
+    View rootView;
+
     private OutputStream outputStream;
 
     private static final int BUFFER_SIZE = 4096;
@@ -138,8 +140,18 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
             }
 
             else if(podcast!=null){
-                System.out.println("ok entre podcast");
+
                 play();
+
+                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        System.out.println("ok onCompletion");
+                        BottomNavigationView toolbar = rootView.findViewById(R.id.bottom_navigation);
+                        toolbar.getMenu().findItem(R.id.mute).setIcon(R.drawable.ic_play_circle_outline_black_24dp);
+                    }
+                });
             }
 
             else if(favourite!=null){
@@ -182,7 +194,7 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_player, container, false);
+        rootView = inflater.inflate(R.layout.fragment_player, container, false);
         BottomNavigationView toolbar = rootView.findViewById(R.id.bottom_navigation);
         toolbar.setOnNavigationItemSelectedListener(this);
 
