@@ -33,8 +33,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
     @Override
     public FavouriteRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_favourite, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_favourite, parent, false);
         return new FavouriteRecyclerViewAdapter.ViewHolder(view);
     }
 
@@ -68,13 +67,14 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
             }
         });
 
-        File imgFile = new  File(holder.mItem.getFavicon());
+        File imgFile =null;
+        if(holder.mItem.getFaviconUrl()!=null)
+            imgFile = new File(holder.mItem.getFaviconUrl());
 
-        if(imgFile.exists()){
+        if (imgFile!=null&&imgFile.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
             holder.circularImageView.setImageBitmap(myBitmap);
-        }
-        else{
+        } else {
             holder.circularImageView.setImageResource(R.drawable.radio_default);
         }
     }
@@ -97,6 +97,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
             circularImageView = view.findViewById(R.id.favourite_radio_image);
             titleTextView = view.findViewById(R.id.favourite_title);
             deleteTextView = view.findViewById(R.id.favourite_delete);
+
         }
 
         @Override

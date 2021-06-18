@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+<!--        <android.support.v7.widget.AppCompatAutoCompleteTextView-->
+<!--            android:id="@+id/autoTextView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Entrez le nom d'une radio"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textColorHint="#000000" />-->
+
+            <SearchView
+                android:id="@+id/simpleSearchView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autoComplete"
+            android:layout_width="fill_parent"
+            android:completionThreshold="1"
+            android:hint="Enter radio name"
+            android:layout_height="wrap_content" />
+
+
+
+        <!-- DatePicker Options -->
+        <TextView
+            android:id="@+id/beginning_date_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/selected_date"/>
+
+        <Button
+            android:id="@+id/beginning_date_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_date"/>
+
+        <TextView
+            android:id="@+id/beginning_time_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/selected_time"/>
+
+        <Button
+            android:id="@+id/beginning_time_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_time"/>
+
+<!--        <Button-->
+<!--            android:id="@+id/original_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/original_button"/>-->
+
+        <TextView
+            android:id="@+id/end_date_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choisissez une date de fin"/>
+
+        <Button
+            android:id="@+id/end_date_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_date"/>
+
+
+        <TextView
+            android:id="@+id/end_time_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choisissez une heure de fin"/>
+
+        <Button
+            android:id="@+id/end_time_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_date"/>
+
+        <Button
+            android:id="@+id/scheduler_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_station"/>
+
+
+
+
+
+
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/show_version_2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/show_version_2"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/mode_dark_date"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/mode_dark" />-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/mode_custom_accent_date"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/mode_custom_accent" />-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/vibrate_date"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/vibrate"-->
+<!--            android:checked="true"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/switch_orientation"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/switch_orientation" />-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/dismiss_date"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/dismiss"-->
+<!--            android:checked="false"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/show_year_first"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/show_year_first"-->
+<!--            android:checked="false"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/title_date"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/title"-->
+<!--            android:checked="false"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/limit_dates"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/limit_dates"-->
+<!--            android:checked="false"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/highlight_dates"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/highlight_dates"-->
+<!--            android:checked="false"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/default_selection"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/default_selection"-->
+<!--            android:checked="false"/>-->
+
+
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/mode_24_hours"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/mode_24_hours" />-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/mode_dark_time"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/mode_dark" />-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/mode_custom_accent_time"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/mode_custom_accent" />-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/vibrate_time"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/vibrate"-->
+<!--            android:checked="true"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/dismiss_time"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/dismiss"-->
+<!--            android:checked="false"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/title_time"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/title"-->
+<!--            android:checked="false"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/enable_seconds"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/enable_seconds"-->
+<!--            android:checked="false"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/limit_times"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/limit_times"-->
+<!--            android:checked="false"/>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/disable_times"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/disable_times"-->
+<!--            android:checked="false"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/end_time_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/pick_date"/>-->
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

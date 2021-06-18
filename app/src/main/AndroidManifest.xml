@@ -3,16 +3,22 @@
     package="com.yannick.radioo"
     android:targetSandboxVersion="1">
 
+    <permission
+        android:name="owner.custom.permission"
+        android:protectionLevel="signatureOrSystem">
+    </permission>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="owner.custom.permission" />
 
     <application
         android:allowBackup="true"
@@ -23,28 +29,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-<!--        <activity-->
-<!--            android:name=".MainTestActivity"-->
-<!--            android:label="@string/title_activity_playing2" />-->
-<!--        <activity android:name=".FavouriteActivity" />-->
-<!--        <activity android:name=".GraphicalUIActivity" />-->
+        <receiver
+            android:name=".SMSReceiver1"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
         <activity android:name=".VocalUIActivity" />
-<!--        <activity android:name=".PodcastActivity" />-->
-<!--        <activity android:name=".PlayingActivity" />-->
-        <activity android:name=".MainTestActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <receiver
-            android:name="com.yannick.radioo.SMSReceiver"
+            android:name=".SMSReceiver"
             android:enabled="true"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            <intent-filter android:priority="999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
     </application>

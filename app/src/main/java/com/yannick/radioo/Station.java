@@ -34,6 +34,18 @@ public class Station implements Parcelable {
     public Station() {
     }
 
+    public Station(Station station){
+        this.setCodec(station.getCodec());
+        this.setName(station.getName());
+        this.setCountry(station.getCountry());
+        this.setCountrycode(station.getCountrycode());
+        this.setFavicon(station.getFavicon());
+        this.setState(station.getState());
+        this.setStationuuid(station.getStationuuid());
+        this.setUrl(station.getUrl());
+        this.setVotes(station.getVotes());
+    }
+
     protected Station(Parcel in) {
         name = in.readString();
         stationuuid = in.readString();

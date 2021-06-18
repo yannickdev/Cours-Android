@@ -15,6 +15,7 @@ public class Podcast implements Parcelable {
     private String faviconUrl;
     private long duration;
 
+
     public Podcast() {
     }
 

@@ -32,6 +32,8 @@ public class PodcastFragment extends Fragment {
 
     List<Podcast> lp;
 
+    PodcastRecyclerViewAdapter adapter;
+
 
     public PodcastFragment() {
     }
@@ -67,6 +69,7 @@ public class PodcastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_podcast_list, container, false);
 
+        lp=datasource.getAllPodcasts();
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -77,15 +80,24 @@ public class PodcastFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
+            if(lp!=null){
+                adapter = new PodcastRecyclerViewAdapter(lp, mListener);
+                adapter.notifyItemInserted(lp.size());
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+            }
 
-            lp=datasource.getAllPodcasts();
-
-            PodcastRecyclerViewAdapter adapter = new PodcastRecyclerViewAdapter(lp, mListener);
-            adapter.notifyDataSetChanged();
-            recyclerView.setAdapter(adapter);
         }
         return view;
     }
+
+//    public void setAdapter(List<Podcast> results, RecyclerView recyclerView){
+//        lp=datasource.getAllPodcasts();
+//
+//        adapter = new PodcastRecyclerViewAdapter(lp, mListener);
+//        recyclerView.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
+//    }
 
 
     @Override
@@ -102,6 +114,8 @@ public class PodcastFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        datasource.close();
+
     }
 
     public interface OnListFragmentInteractionListener {

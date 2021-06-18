@@ -10,6 +10,7 @@ import java.util.Date;
 public class Favourite extends Station implements Parcelable {
 
     private Date creationDate;
+    private String faviconUrl;
     private Integer order;
 
 
@@ -18,20 +19,13 @@ public class Favourite extends Station implements Parcelable {
     }
 
     public Favourite(Station station) {
-        this.setCodec(station.getCodec());
-        this.setName(station.getName());
-        this.setCountry(station.getCountry());
-        this.setCountrycode(station.getCountrycode());
-        this.setFavicon(station.getFavicon());
-        this.setState(station.getState());
-        this.setStationuuid(station.getStationuuid());
-        this.setUrl(station.getUrl());
-        this.setVotes(station.getVotes());
+        super(station);
     }
 
     protected Favourite(Parcel in) {
         super(in);
         this.setCreationDate(((java.util.Date) in.readSerializable()));
+        this.setFaviconUrl(in.readString());
         this.setOrder(in.readInt());
     }
 
@@ -75,6 +69,7 @@ public class Favourite extends Station implements Parcelable {
     public void writeToParcel(Parcel in, int flags) {
         super.writeToParcel(in,flags);
         in.writeSerializable(this.getCreationDate());
+        in.writeString(this.getFaviconUrl());
         //in.writeInt(this.getOrder());
 
     }
@@ -95,11 +90,9 @@ public class Favourite extends Station implements Parcelable {
         this.order = order;
     }
 
-    /* public List<String> getTags() {
-        return tags;
+    public String getFaviconUrl() { return faviconUrl; }
+
+    public void setFaviconUrl(String faviconUrl) { this.faviconUrl = faviconUrl;
     }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }*/
 }

@@ -39,18 +39,15 @@ public class PodcastRecyclerViewAdapter extends RecyclerView.Adapter<PodcastRecy
     public PodcastRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_podcast, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_podcast, parent, false);
 
         return new PodcastRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final PodcastRecyclerViewAdapter.ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
 
-        if(holder.mItem.getTitle()==null) System.out.println("mItem title est null!");
-        else System.out.println("mItem title n'est pas null!");
+        holder.mItem = mValues.get(position);
         holder.titleTextView.setText(holder.mItem.getTitle());
 
         Duration duration = new Duration(holder.mItem.getDuration());
@@ -108,6 +105,12 @@ public class PodcastRecyclerViewAdapter extends RecyclerView.Adapter<PodcastRecy
         return mValues.size();
     }
 
+    public void update(List<Podcast> list){
+       // mValues.clear();
+        mValues.addAll(list);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final CircularImageView circularImageView;
@@ -129,6 +132,7 @@ public class PodcastRecyclerViewAdapter extends RecyclerView.Adapter<PodcastRecy
         public String toString() {
             return super.toString() + " '" + titleTextView.getText() + "'";
         }
+
     }
 
 }

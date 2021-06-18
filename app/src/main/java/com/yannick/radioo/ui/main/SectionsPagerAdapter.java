@@ -11,6 +11,8 @@ import com.yannick.radioo.radios.FavouriteFragment;
 import com.yannick.radioo.radios.PlayerFragment;
 import com.yannick.radioo.radios.PodcastFragment;
 import com.yannick.radioo.radios.RadioFragment;
+import com.yannick.radioo.radios.ScheduledStationsFragment;
+import com.yannick.radioo.radios.SchedulerFragment;
 import com.yannick.radioo.radios.VocalUIFragment;
 
 
@@ -28,9 +30,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         switch (position) {
-//            case 0:
-//                return VocalUIFragment.newInstance();
-            case 0: return RadioFragment.newInstance(1);
+            case 0: //return ScheduledStationsFragment.newInstance(1);
+                    return SchedulerFragment.newInstance();
+                    //return RadioFragment.newInstance(1);
+
             case 1: return PodcastFragment.newInstance(1);
             case 2: return PlayerFragment.newInstance(null);
             case 3: return FavouriteFragment.newInstance(1);

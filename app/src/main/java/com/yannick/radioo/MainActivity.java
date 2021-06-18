@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,8 +11,6 @@ import android.speech.tts.TextToSpeech;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,19 +26,20 @@ import com.yannick.radioo.radios.FavouriteFragment;
 import com.yannick.radioo.radios.PlayerFragment;
 import com.yannick.radioo.radios.PodcastFragment;
 import com.yannick.radioo.radios.RadioFragment;
+import com.yannick.radioo.radios.ScheduledStationsFragment;
 import com.yannick.radioo.radios.SearchFragment;
 import com.yannick.radioo.radios.VocalUIFragment;
 import com.yannick.radioo.ui.main.SectionsPagerAdapter;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class MainTestActivity extends AppCompatActivity implements RadioFragment.OnListFragmentInteractionListener,
+public class MainActivity extends AppCompatActivity implements RadioFragment.OnListFragmentInteractionListener,
                                                                    PlayerFragment.OnFragmentInteractionListener,
                                                                    SearchFragment.OnFragmentInteractionListener,
                                                                    PodcastFragment.OnListFragmentInteractionListener,
                                                                    FavouriteFragment.OnListFragmentInteractionListener,
+                                                                   ScheduledStationsFragment.OnListFragmentInteractionListener,
                                                                    VocalUIFragment.OnFragmentInteractionListener
                                                                    {
 
@@ -52,7 +50,7 @@ public class MainTestActivity extends AppCompatActivity implements RadioFragment
     private static int STATE = 1;
     PlayerFragment pf;
 
-    private static final String TAG = MainTestActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
 
     private TextToSpeech tts;
@@ -97,7 +95,7 @@ public class MainTestActivity extends AppCompatActivity implements RadioFragment
                     mfragment = new RadioFragment();
                 } else if (STATE == 1) {
                     STATE = 0;
-                    FragmentManager fragmentManager = MainTestActivity.this.getSupportFragmentManager();
+                    FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
                     PlayerFragment pf = (PlayerFragment) fragmentManager.findFragmentById(R.id.player_fragment);
                     if(pf!=null) pf.stop();
                     mfragment = new VocalUIFragment();
@@ -110,7 +108,7 @@ public class MainTestActivity extends AppCompatActivity implements RadioFragment
     }
 
     public Fragment getVisibleFragment() {
-        FragmentManager fragmentManager = MainTestActivity.this.getSupportFragmentManager();
+        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
         if (fragments != null) {
             for (Fragment fragment : fragments) {
@@ -175,6 +173,16 @@ public class MainTestActivity extends AppCompatActivity implements RadioFragment
         bundle.putParcelable("STATION", station);
         pf = new PlayerFragment();
         pf.setArguments(bundle);
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.player_fragment, pf).commit();
+        viewPager.setCurrentItem(2);
+    }
+
+    public void onFragmentInteraction(ScheduledStation station) {
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelable("STATION", station);
+        pf = new PlayerFragment();
+        //pf.setArguments(bundle);
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.player_fragment, pf).commit();
         viewPager.setCurrentItem(2);

@@ -1,10 +1,8 @@
 package com.yannick.radioo.radios;
 
-import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,9 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,11 +23,11 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.yannick.radioo.Favourite;
+import com.yannick.radioo.FavouriteDAO;
 import com.yannick.radioo.Podcast;
 import com.yannick.radioo.PodcastDAO;
 import com.yannick.radioo.R;
 import com.yannick.radioo.Station;
-import com.yannick.radioo.FavouriteDAO;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -79,7 +74,7 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
     private Podcast podcast;
     private Favourite favourite;
 
-    FavouriteDAO datasource;
+    private FavouriteDAO datasource;
 
     private OnFragmentInteractionListener mListener;
 
@@ -122,7 +117,9 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
 
 
         if (getArguments() != null) {
-            stop();
+            if(mPlayer!=null&&mPlayer.isPlaying()) {
+                stop();
+            }
             mPlayer = new MediaPlayer();
             station = getArguments().getParcelable("STATION");
             System.out.println("STATION ON CREATE: "+station);
@@ -147,7 +144,6 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
 
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        System.out.println("ok onCompletion");
                         BottomNavigationView toolbar = rootView.findViewById(R.id.bottom_navigation);
                         toolbar.getMenu().findItem(R.id.mute).setIcon(R.drawable.ic_play_circle_outline_black_24dp);
                     }
@@ -204,10 +200,8 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
 
 
         TextView textView = rootView.findViewById(R.id.station_name);
-//        System.out.println("updatePlayerView textview: "+textView.getText());
         if(station!=null)  {
             textView.setText(station.getName());
-
             Favourite f = new Favourite(station);
             if(datasource.existInDb(f)){
                 toolbar.getMenu().findItem(R.id.favourite).setVisible(false);
@@ -223,8 +217,6 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
             textView.setText(favourite.getName());
             toolbar.getMenu().findItem(R.id.favourite).setVisible(false);
         }
-
-        //updatePlayerView();
 
         return rootView;
     }
@@ -258,16 +250,9 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
                 System.out.println("ok entre favourite");
                 System.out.println(station);
                 PlayerFragment.DownloadImageStreamTask downloadTask = new PlayerFragment.DownloadImageStreamTask();
-                //bug: quand on tente de mettre un station podcastée en favori
 
                 downloadTask.execute(new String[] { station.getFavicon() });
                 Log.v("AddFavouriteTask",station.getStationuuid());
-
-//                StationDAO datasource = new StationDAO(context);
-//                datasource.open();
-                Log.v("saveFaviconPath: ",""+saveFaviconPath);
-                // PlayingActivity.this.station.setFavicon(saveFaviconPath);
-
 
                 Favourite f = new Favourite(station);
                 if(!datasource.existInDb(f)){
@@ -281,30 +266,30 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
     private class RecordAudioStreamTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-            startTime= System.currentTimeMillis();
+            startTime = System.currentTimeMillis();
 
             Thread thread = new Thread(new Runnable() {
 
                 @Override
                 public void run() {
 
-                    if(station ==null) station = favourite;
-                    try  {
-                        File directory = new File(context.getFilesDir()+File.separator+"MyPodcasts");
+                    //if(station ==null) station = favourite;
+                    try {
+                        File directory = new File(context.getFilesDir() + File.separator + "MyPodcasts");
 
-                        if(!directory.exists()){
+                        if (!directory.exists()) {
                             directory.mkdir();
                         }
 
                         try {
 
-                            String path=context.getFilesDir()+File.separator+"MyPodcasts";//+File.separator+station.getName()+(new Date()).toString()+"."+station.getCodec().toLowerCase()
+                            String path = context.getFilesDir() + File.separator + "MyPodcasts";//+File.separator+station.getName()+(new Date()).toString()+"."+station.getCodec().toLowerCase()
 
                             String streamURL = null;
-                            if(station!=null)
-                                streamURL=station.getUrl();
+                            if (station != null)
+                                streamURL = station.getUrl();
                             else
-                                streamURL=favourite.getUrl();
+                                streamURL = favourite.getUrl();
 
                             URL url = new URL(streamURL);
                             HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
@@ -322,19 +307,19 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
                                     fileName = streamURL.substring(streamURL.lastIndexOf("/") + 1, streamURL.length());
                                 }
 
-                                if(station!=null)
-                                    saveFilePath = path + File.separator + fileName+getNow()+"."+station.getCodec();
+                                if (station != null)
+                                    saveFilePath = path + File.separator + fileName + getNow() + "." + station.getCodec();
                                 else
-                                    saveFilePath = path + File.separator + fileName+getNow()+"."+station.getCodec();
+                                    saveFilePath = path + File.separator + fileName + getNow() + "." + favourite.getCodec();
 
-                                if(input!=null) input.close();
+                                if (input != null) input.close();
                                 input = httpConn.getInputStream();
 
                                 outputStream = new FileOutputStream(saveFilePath);
 
                                 int bytesRead = -1;
                                 byte[] buffer = new byte[BUFFER_SIZE];
-                                while ((input!=null)&&(bytesRead = input.read(buffer)) != -1) {
+                                while ((input != null) && (bytesRead = input.read(buffer)) != -1) {
                                     outputStream.write(buffer, 0, bytesRead);
                                 }
                                 System.out.println("File downloaded");
@@ -344,7 +329,8 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
                             httpConn.disconnect();
                         } catch (IOException e) {
                             e.printStackTrace();
-                        }                    } catch (Exception e) {
+                        }
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -355,9 +341,10 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
             return "recording...";
 
         }
+
         @Override
         protected void onPostExecute(String result) {
-           // mTextViewRecordingState.setText(result);
+            // mTextViewRecordingState.setText(result);
             isRecording = true;
         }
     }
@@ -377,17 +364,16 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
                         PodcastDAO datasource = new PodcastDAO(context);
                         datasource.open();
 
-
                         podcast= new Podcast();
                         podcast.setId(0);
-
 
                         if(station !=null){
                             podcast.setTitle(station.getName()+(new Date()).toString());
                                     //+"."+station.getCodec().toLowerCase());
                         }
                         else {
-                            podcast.setTitle(favourite.getName() + (new Date()).toString() + "." + favourite.getCodec().toLowerCase());
+                            podcast.setTitle(favourite.getName() + (new Date()).toString()) ;
+                            //+ "." + favourite.getCodec().toLowerCase());
                         }
 
                         podcast.setStation(null);
@@ -500,16 +486,19 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
 
             thread.start();
 
-            return "stop recording";
+            return saveFaviconPath;
         }
 
         @Override
         protected void onPostExecute(String result) {
 
+            DownloadImageStreamTask downloadTask = new DownloadImageStreamTask();
+            downloadTask.execute(new String[] { station.getFavicon() });
+
             Station s= new Station();
             s.setStationuuid("0");
             s.setName(station.getName()+(new Date()).toString()+"."+station.getCodec().toLowerCase());
-            s.setFavicon(saveFilePath);
+            s.setFavicon(result);
             s.setCountry(station.getCountry());
             s.setUrl(station.getUrl());
             s.setCountrycode(station.getCountrycode());
@@ -518,8 +507,9 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
             s.setCodec(station.getCodec());
             s.setVotes(station.getVotes());
 
-            Favourite f = new Favourite(s);
 
+            Favourite f = new Favourite(s);
+            f.setFaviconUrl(saveFaviconPath);
             FavouriteDAO datasource = new FavouriteDAO(context);
             datasource.open();
             Log.v("saveFaviconPath: ",""+saveFaviconPath);
@@ -577,9 +567,9 @@ public class PlayerFragment extends Fragment implements BottomNavigationView.OnN
     }
 
     public void stop(){
-        if(mPlayer!=null&&mPlayer.isPlaying()){
+       //if(mPlayer!=null&&mPlayer.isPlaying()){
             mPlayer.stop();
-        }
+        //}
     }
 
 

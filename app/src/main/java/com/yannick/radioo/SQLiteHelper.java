@@ -22,6 +22,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_FAVICON_URL = "faviconurl";
     public static final String COLUMN_DATE = "date";
 
+    public static final String TABLE_SCHEDULED = "scheduled";
+    public static final String COLUMN_START_TIME = "starttime";
+    public static final String COLUMN_END_TIME = "endtime";
+    public static final String COLUMN_STATUS = "status";
+
 
     private static final int NUM_UUID = 0;
     private static final int NUM_NAME = 1;
@@ -37,7 +42,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final int NUM_DATE = 10;
 
     public static final String DATABASE_NAME = "stations.db";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
 
     private static final String TABLE_STATION_CREATE = "create table "+ TABLE_STATIONS
             + "("
@@ -59,6 +64,19 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_DATE + " text not null"
             +");";
 
+    private static final String TABLE_SCHEDULED_CREATE = "create table "+ TABLE_SCHEDULED
+            + "("
+            + COLUMN_UUID + " text not null,"
+            + COLUMN_NAME + " text not null,"
+            + COLUMN_COUNTRY + " text not null,"
+            + COLUMN_COUNTRY_CODE + " text not null,"
+            + COLUMN_URL + " text not null,"
+            + COLUMN_FAVICON + " text,"
+            + COLUMN_START_TIME + " text not null,"
+            + COLUMN_END_TIME + " text not null,"
+            + COLUMN_STATUS + " text not null"
+            +");";
+
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -71,6 +89,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(TABLE_STATION_CREATE);
         database.execSQL(TABLE_PODCAST_CREATE);
+        database.execSQL(TABLE_SCHEDULED_CREATE);
 
     }
 
@@ -80,6 +99,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATIONS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PODCASTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCHEDULED);
         onCreate(db);
     }
 }

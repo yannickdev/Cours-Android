@@ -51,6 +51,7 @@ public class SMSReceiver extends BroadcastReceiver implements RecognitionListene
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.d(TAG, "onReceive: ok" );
         // Get the SMS message.
         Bundle bundle = intent.getExtras();
         SmsMessage[] msgs;

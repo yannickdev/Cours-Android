@@ -23,20 +23,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class StationAdapter extends ArrayAdapter {
+public class ScheduledStationAdapter extends ArrayAdapter {
     private Context mContext;
-    private List<Station> stations;
-    private List<Station> suggestions, tempItems;
+    private List<ScheduledStation> stations;
+    private List<ScheduledStation> suggestions, tempItems;
     int resource, textViewResourceId;
 
-    public StationAdapter(Context context, int resource, int textViewResourceId, List<Station> stations) {
+    public ScheduledStationAdapter(Context context, int resource, int textViewResourceId, List<ScheduledStation> stations) {
         super(context, resource, textViewResourceId, stations);
         this.mContext = context;
         this.resource = resource;
         this.textViewResourceId = textViewResourceId;
         this.stations = stations;
-        tempItems = new ArrayList<Station>(stations); // this makes the difference.
-        suggestions = new ArrayList<Station>();
+        tempItems = new ArrayList<ScheduledStation>(stations); // this makes the difference.
+        suggestions = new ArrayList<ScheduledStation>();
     }
 
 
@@ -133,11 +133,11 @@ public class StationAdapter extends ArrayAdapter {
             }
         }
 
-            @Override
-            protected void onPostExecute (Drawable d){
-                holder.circularImageView.setImageDrawable(d);
-            }
+        @Override
+        protected void onPostExecute (Drawable d){
+            holder.circularImageView.setImageDrawable(d);
         }
+    }
 
 
     @Override
@@ -159,7 +159,7 @@ public class StationAdapter extends ArrayAdapter {
         protected FilterResults performFiltering(CharSequence constraint) {
             if (constraint != null) {
                 suggestions.clear();
-                for (Station station : tempItems) {
+                for (ScheduledStation station : tempItems) {
                     if (station.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
                         suggestions.add(station);
                     }
@@ -186,7 +186,7 @@ public class StationAdapter extends ArrayAdapter {
 
     };
 
-    }
+}
 
 
 
