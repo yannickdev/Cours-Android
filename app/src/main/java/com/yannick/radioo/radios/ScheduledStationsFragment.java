@@ -144,14 +144,14 @@ public class ScheduledStationsFragment extends Fragment {
         }
 
         firingCal= Calendar.getInstance();
-        firingCal.set(Calendar.HOUR, 9); // At the hour you want to fire the alarm
-        firingCal.set(Calendar.MINUTE, 44); // alarm minute
+        firingCal.set(Calendar.HOUR, 12); // At the hour you want to fire the alarm
+        firingCal.set(Calendar.MINUTE, 17); // alarm minute
         firingCal.set(Calendar.SECOND, 0); // and alarm second
         long intendedTime = firingCal.getTimeInMillis();
 
         stopingCal= Calendar.getInstance();
-        stopingCal.set(Calendar.HOUR, 9); // At the hour you want to fire the alarm
-        stopingCal.set(Calendar.MINUTE,45); // alarm minute
+        stopingCal.set(Calendar.HOUR, 12); // At the hour you want to fire the alarm
+        stopingCal.set(Calendar.MINUTE,18); // alarm minute
         stopingCal.set(Calendar.SECOND, 0); // and alarm second
         long intendedStopTime = stopingCal.getTimeInMillis();
 
@@ -525,4 +525,3 @@ public class ScheduledStationsFragment extends Fragment {
         void onListFragmentInteraction(Station podcast);
     }
 }
-

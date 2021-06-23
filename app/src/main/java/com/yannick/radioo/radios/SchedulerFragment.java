@@ -124,7 +124,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
     public static SchedulerFragment newInstance() {
         SchedulerFragment fragment = new SchedulerFragment();
         Bundle args = new Bundle();
-      //  args.putParcelable("STATION", station);
+        //  args.putParcelable("STATION", station);
         fragment.setArguments(args);
 
         return fragment;
@@ -172,7 +172,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
                 Log.v("response",t.getMessage());
             }
         });
-       // return view;
+        // return view;
 
 //        RadioService radioService = RetrofitManager.getRetrofit().create(RadioService.class);
 //        radioService.getStations().enqueue(new Callback<List<Station>>() {
@@ -205,14 +205,14 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
 
         Context c = getActivity().getApplicationContext();
         autoCompleteTextView=view.findViewById(R.id.autoComplete);
-       // ArrayAdapter<String> adapter = new ArrayAdapter<String> (c, R.layout.autocomplete_item, list);
+        // ArrayAdapter<String> adapter = new ArrayAdapter<String> (c, R.layout.autocomplete_item, list);
 
 
 
 
 
 
-      //  ArrayList objects = new ArrayList<Map<String, String>>();
+        //  ArrayList objects = new ArrayList<Map<String, String>>();
 
 //        Map<String, String> NamePhoneType = new HashMap<String, String>();
 //        NamePhoneType.put("Name", "John");
@@ -222,7 +222,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
 //        NamePhoneType.put("Phone", "4567890123");
 //        objects.add(NamePhoneType);
 
-     //   ArrayAdapter<Map<String, String>> adapter = new ArrayAdapter<Map<String, String>>(c, android.R.layout.simple_list_item_1, objects);
+        //   ArrayAdapter<Map<String, String>> adapter = new ArrayAdapter<Map<String, String>>(c, android.R.layout.simple_list_item_1, objects);
 
 //        ArrayAdapter adapter = new ArrayAdapter(c,android.R.layout.simple_list_item_1,countries);
 //
@@ -235,7 +235,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
 //        //autoCompleteTextView.setThreshold(3);
 //        adapter.setNotifyOnChange(true);
         // adapter.addAll(list);
-       // autoCompleteTextView.setAdapter(adapter);
+        // autoCompleteTextView.setAdapter(adapter);
 
 //        final RadioService radioService = RetrofitManager.getRetrofit().create(RadioService.class);
 //
@@ -343,7 +343,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
             ScheduledStation s= new ScheduledStation();
             s.setStationuuid("0");
             s.setName(station.getName()+(new Date()).toString()+"."+station.getCodec().toLowerCase());
-           // s.setFavicon(saveFilePath);
+            // s.setFavicon(saveFilePath);
             s.setCountry(station.getCountry());
             s.setUrl(station.getUrl());
             s.setCountrycode(station.getCountrycode());
@@ -356,7 +356,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
 
             ScheduledStationDAO datasource = new ScheduledStationDAO(context);
             datasource.open();
-           // Log.v("saveFaviconPath: ",""+saveFaviconPath);
+            // Log.v("saveFaviconPath: ",""+saveFaviconPath);
 
             datasource.create(f);
             manageDatePicker();
@@ -451,7 +451,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
 //
 
 
-                    //autoCompleteTextView
+    //autoCompleteTextView
 //                    AutoCompleteTextView textView = (AutoCompleteTextView)
 //                            findViewById(R.id.countries_list);
 //            @Override

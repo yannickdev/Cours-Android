@@ -126,41 +126,4 @@ public class RadioFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(Station item);
     }
-
-//    public static void getAllStation() {
-//
-//        RadioService radioService = RetrofitManager.getRetrofit().create(RadioService.class);
-//        Call<List<Station>> call = radioService.getStations();
-//        radioService.getStations().enqueue(new Callback<List<Station>>() {
-//            @Override
-//            public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
-//                if (response.isSuccessful()) {
-//                    mListStations.addAll(response.body());
-//                }
-//                else {
-//
-//                    switch (response.code()) {
-//                        case 404:
-//                            Log.v("error","not found");
-//                            //Toast.makeText(ErrorHandlingActivity.this, "not found", Toast.LENGTH_SHORT).show();
-//                            break;
-//                        case 500:
-//                            Log.v("error","server side error");
-//                            // Toast.makeText(ErrorHandlingActivity.this, "server broken", Toast.LENGTH_SHORT).show();
-//                            break;
-//                        default:
-//                            Log.v("error","unknown error");
-//                            //Toast.makeText(ErrorHandlingActivity.this, "unknown error", Toast.LENGTH_SHORT).show();
-//                            break;
-//                    }
-//                }
-//
-//            }
-//            @Override
-//            public void onFailure(Call<List<Station>> call, Throwable t) {
-//                Log.v("response",t.getMessage());
-//            }
-//        });
-//    }
-
 }

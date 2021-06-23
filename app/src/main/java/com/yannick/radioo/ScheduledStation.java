@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 public class ScheduledStation extends Station  {
 
+
     private String startDate;
     private String endDate;
     private SchedulerStatus status;
