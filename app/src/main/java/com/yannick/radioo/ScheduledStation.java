@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 public class ScheduledStation extends Station  {
 
-
+    private long id;
     private String startDate;
     private String endDate;
     private SchedulerStatus status;
@@ -68,6 +68,10 @@ public class ScheduledStation extends Station  {
         DateTime end = DateTime.parse(endDate, DateTimeFormat.forPattern("dd-MM-yyyy"));
         return new Period(start, end).getMillis();
     }
+
+    public long getId() { return id;  }
+
+    public void setId(long id) { this.id = id; }
 
     public String getStartDate() {
         return startDate;

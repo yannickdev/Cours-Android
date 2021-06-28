@@ -35,6 +35,7 @@ public class ScheduledStationDAO {
 
     public long create(ScheduledStation station){
         ContentValues values = new ContentValues();
+       // values.put(SQLiteHelper.COLUMN_SCHEDULED_ID, station.getId());
         values.put(SQLiteHelper.COLUMN_NAME, station.getName());
         values.put(COLUMN_UUID, station.getStationuuid());
         values.put(SQLiteHelper.COLUMN_COUNTRY, station.getCountry());
@@ -62,6 +63,7 @@ public class ScheduledStationDAO {
 
 
                 ScheduledStation station = new ScheduledStation();
+                station.setId(cursor.getLong( 0));
                 station.setStationuuid(cursor.getString( 0));
                 station.setName(cursor.getString(1));
                 station.setCountry(cursor.getString(2));

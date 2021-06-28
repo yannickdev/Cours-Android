@@ -3,7 +3,6 @@ package com.yannick.radioo;
 import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -70,18 +69,6 @@ public class MainActivity extends AppCompatActivity implements RadioFragment.OnL
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
-//        Intent intent = getIntent();
-//        ScheduledStation scheduledStation = intent.getParcelableExtra("scheduledStation");
-//        if(scheduledStation!=null) {
-//            System.out.println("dans main activity"+scheduledStation);
-//            ScheduledStationsFragment frag = new ScheduledStationsFragment();
-//            Bundle bundle = new Bundle();
-//            bundle.putParcelable("scheduledSation",scheduledStation);
-//            frag.setArguments(bundle);
-//        }
-//        else System.out.println("scheduledStation is null");
-
 
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();

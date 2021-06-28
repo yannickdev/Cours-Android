@@ -22,6 +22,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_FAVICON_URL = "faviconurl";
     public static final String COLUMN_DATE = "date";
 
+    public static final String COLUMN_SCHEDULED_ID = "id";
     public static final String TABLE_SCHEDULED = "scheduled";
     public static final String COLUMN_START_TIME = "starttime";
     public static final String COLUMN_END_TIME = "endtime";
@@ -66,6 +67,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_SCHEDULED_CREATE = "create table "+ TABLE_SCHEDULED
             + "("
+            + COLUMN_SCHEDULED_ID + " integer primary key autoincrement not null, "
             + COLUMN_UUID + " text not null,"
             + COLUMN_NAME + " text not null,"
             + COLUMN_COUNTRY + " text not null,"

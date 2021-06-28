@@ -30,14 +30,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         switch (position) {
-            case 0: return ScheduledStationsFragment.newInstance(1);
-                    //return SchedulerFragment.newInstance();
+            case 0: //return ScheduledStationsFragment.newInstance(1);
+                    return SchedulerFragment.newInstance();
                     //return RadioFragment.newInstance(1);
 
             case 1: return PodcastFragment.newInstance(1);
             case 2: return PlayerFragment.newInstance(null);
             case 3: return ScheduledStationsFragment.newInstance(1);
-                    //FavouriteFragment.newInstance(1);
+                //return FavouriteFragment.newInstance(1);
             default: return null;
         }
     }
