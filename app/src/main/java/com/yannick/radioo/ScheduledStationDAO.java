@@ -17,7 +17,7 @@ public class ScheduledStationDAO {
 
     private SQLiteDatabase database;
     private SQLiteHelper dbHelper;
-    private String[] allColumns = { COLUMN_UUID, SQLiteHelper.COLUMN_NAME,SQLiteHelper.COLUMN_COUNTRY,SQLiteHelper.COLUMN_COUNTRY_CODE,SQLiteHelper.COLUMN_URL,
+    private String[] allColumns = { SQLiteHelper.COLUMN_SCHEDULED_ID,COLUMN_UUID, SQLiteHelper.COLUMN_NAME,SQLiteHelper.COLUMN_COUNTRY,SQLiteHelper.COLUMN_COUNTRY_CODE,SQLiteHelper.COLUMN_URL,
             SQLiteHelper.COLUMN_FAVICON, SQLiteHelper.COLUMN_START_TIME, SQLiteHelper.COLUMN_END_TIME, SQLiteHelper.COLUMN_STATUS
     };
 
@@ -35,7 +35,7 @@ public class ScheduledStationDAO {
 
     public long create(ScheduledStation station){
         ContentValues values = new ContentValues();
-       // values.put(SQLiteHelper.COLUMN_SCHEDULED_ID, station.getId());
+        //values.put(SQLiteHelper.COLUMN_SCHEDULED_ID, station.getId());
         values.put(SQLiteHelper.COLUMN_NAME, station.getName());
         values.put(COLUMN_UUID, station.getStationuuid());
         values.put(SQLiteHelper.COLUMN_COUNTRY, station.getCountry());
@@ -47,6 +47,21 @@ public class ScheduledStationDAO {
         values.put(SQLiteHelper.COLUMN_STATUS, ""+station.getStatus());
 
         return database.insert(SQLiteHelper.TABLE_SCHEDULED, null, values);
+    }
+
+    public int updateStation(int id, ScheduledStation station){
+
+        ContentValues values = new ContentValues();
+        values.put(SQLiteHelper.COLUMN_NAME, station.getName());
+        values.put(COLUMN_UUID, station.getStationuuid());
+        values.put(SQLiteHelper.COLUMN_COUNTRY, station.getCountry());
+        values.put(SQLiteHelper.COLUMN_COUNTRY_CODE, station.getCountrycode());
+        values.put(SQLiteHelper.COLUMN_URL, station.getUrl());
+        values.put(SQLiteHelper.COLUMN_FAVICON, station.getFavicon());
+        values.put(SQLiteHelper.COLUMN_START_TIME, ""+station.getStartDate());
+        values.put(SQLiteHelper.COLUMN_END_TIME, ""+station.getEndDate());
+        values.put(SQLiteHelper.COLUMN_STATUS, ""+station.getStatus());
+        return database.update(SQLiteHelper.TABLE_SCHEDULED, values, SQLiteHelper.COLUMN_SCHEDULED_ID + " = " +id, null);
     }
 
     public List<ScheduledStation> getAllStations() {
@@ -61,18 +76,17 @@ public class ScheduledStationDAO {
                     return null;
                 }
 
-
                 ScheduledStation station = new ScheduledStation();
-                station.setId(cursor.getLong( 0));
-                station.setStationuuid(cursor.getString( 0));
-                station.setName(cursor.getString(1));
-                station.setCountry(cursor.getString(2));
-                station.setCountrycode(cursor.getString(3));
-                station.setUrl(cursor.getString(4));
-                station.setFavicon(cursor.getString(5));
-                station.setStartDate(""+cursor.getString(5));
-                station.setEndDate(""+cursor.getString(5));
-                //station.setStatus(cursor.getString(5));
+                station.setId((long)cursor.getInt(0));
+                station.setStationuuid(cursor.getString( 1));
+                station.setName(cursor.getString(2));
+                station.setCountry(cursor.getString(3));
+                station.setCountrycode(cursor.getString(4));
+                station.setUrl(cursor.getString(5));
+                station.setFavicon(cursor.getString(6));
+                station.setStartDate(""+cursor.getString(7));
+                station.setEndDate(""+cursor.getString(8));
+                station.setStatus(cursor.getString(9));
 
 
                 stations.add(station);

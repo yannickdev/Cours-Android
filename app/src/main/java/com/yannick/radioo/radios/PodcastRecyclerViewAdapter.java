@@ -37,10 +37,8 @@ public class PodcastRecyclerViewAdapter extends RecyclerView.Adapter<PodcastRecy
 
     @Override
     public PodcastRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_podcast, parent, false);
-
         return new PodcastRecyclerViewAdapter.ViewHolder(view);
     }
 

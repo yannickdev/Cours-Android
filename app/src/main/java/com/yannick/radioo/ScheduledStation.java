@@ -15,11 +15,11 @@ public class ScheduledStation extends Station  {
     private long id;
     private String startDate;
     private String endDate;
-    private SchedulerStatus status;
+    private String status;
 
     //ISO8601 format : yyyy-MM-dd'T'HH:mm:ssZ,
 
-    public ScheduledStation(String startDate, String endDate, SchedulerStatus status) {
+    public ScheduledStation(String startDate, String endDate, String status) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
@@ -39,7 +39,7 @@ public class ScheduledStation extends Station  {
                 //(org.joda.time.DateTime)in.readSerializable();
         endDate = in.readString();
                 //= (org.joda.time.DateTime)in.readSerializable();
-        status = (SchedulerStatus)in.readSerializable();
+        status = (String)in.readSerializable();
 
     }
 
@@ -60,13 +60,23 @@ public class ScheduledStation extends Station  {
         super.writeToParcel(in,flags);
         in.writeSerializable(startDate);
         in.writeSerializable(endDate);
-        in.writeSerializable(status);
+        in.writeString(status);
     }
 
     public int getDuration(){
         DateTime start = DateTime.parse(startDate, DateTimeFormat.forPattern("dd-MM-yyyy"));
         DateTime end = DateTime.parse(endDate, DateTimeFormat.forPattern("dd-MM-yyyy"));
         return new Period(start, end).getMillis();
+    }
+
+    @Override
+    public String toString() {
+        return "ScheduledStation{" +
+                "id=" + id +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", status=" + status +
+                '}';
     }
 
     public long getId() { return id;  }
@@ -89,11 +99,11 @@ public class ScheduledStation extends Station  {
         this.endDate = endDate;
     }
 
-    public SchedulerStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(SchedulerStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

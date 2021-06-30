@@ -1,3 +1,4 @@
+
 package com.yannick.radioo.radios;
 
 import android.app.AlarmManager;
@@ -9,14 +10,10 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.SearchView;
@@ -32,7 +29,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import com.yannick.radioo.Favourite;
-import com.yannick.radioo.FavouriteDAO;
 import com.yannick.radioo.Podcast;
 import com.yannick.radioo.PodcastDAO;
 import com.yannick.radioo.R;
@@ -42,9 +38,6 @@ import com.yannick.radioo.ScheduledStation;
 import com.yannick.radioo.ScheduledStationDAO;
 import com.yannick.radioo.SchedulerStatus;
 import com.yannick.radioo.Station;
-import com.yannick.radioo.StationAdapter;
-
-import org.joda.time.DateTime;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -57,9 +50,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -89,7 +80,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
     Calendar firingCal;
     Calendar stopingCal;
 
-    long lastInsertedId;
+    long lastinsertedId;
 
     //TextView statusView ;
 
@@ -180,7 +171,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
     public static SchedulerFragment newInstance() {
         SchedulerFragment fragment = new SchedulerFragment();
         Bundle args = new Bundle();
-      //  args.putParcelable("STATION", station);
+        //  args.putParcelable("STATION", station);
         fragment.setArguments(args);
 
         return fragment;
@@ -191,6 +182,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
 
         //setHasOptionsMenu(true);
         //context = this.getActivity();
+        intent =new Intent("com.yannick.radioo");
 
         context=this.getContext();
         datasource = new ScheduledStationDAO(context);
@@ -242,7 +234,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
                 Log.v("response",t.getMessage());
             }
         });
-       // return view;
+        // return view;
 
 //        RadioService radioService = RetrofitManager.getRetrofit().create(RadioService.class);
 //        radioService.getStations().enqueue(new Callback<List<Station>>() {
@@ -268,14 +260,14 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
         sendScheduledStation = view.findViewById(R.id.scheduler_button);
         Context c = getActivity().getApplicationContext();
         autoCompleteTextView=view.findViewById(R.id.autoComplete);
-       // ArrayAdapter<String> adapter = new ArrayAdapter<String> (c, R.layout.autocomplete_item, list);
+        // ArrayAdapter<String> adapter = new ArrayAdapter<String> (c, R.layout.autocomplete_item, list);
 
 
 
 
 
 
-      //  ArrayList objects = new ArrayList<Map<String, String>>();
+        //  ArrayList objects = new ArrayList<Map<String, String>>();
 
 //        Map<String, String> NamePhoneType = new HashMap<String, String>();
 //        NamePhoneType.put("Name", "John");
@@ -285,7 +277,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
 //        NamePhoneType.put("Phone", "4567890123");
 //        objects.add(NamePhoneType);
 
-     //   ArrayAdapter<Map<String, String>> adapter = new ArrayAdapter<Map<String, String>>(c, android.R.layout.simple_list_item_1, objects);
+        //   ArrayAdapter<Map<String, String>> adapter = new ArrayAdapter<Map<String, String>>(c, android.R.layout.simple_list_item_1, objects);
 
 //        ArrayAdapter adapter = new ArrayAdapter(c,android.R.layout.simple_list_item_1,countries);
 //
@@ -298,7 +290,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
 //        //autoCompleteTextView.setThreshold(3);
 //        adapter.setNotifyOnChange(true);
         // adapter.addAll(list);
-       // autoCompleteTextView.setAdapter(adapter);
+        // autoCompleteTextView.setAdapter(adapter);
 
 //        final RadioService radioService = RetrofitManager.getRetrofit().create(RadioService.class);
 //
@@ -402,14 +394,14 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
 
         sendScheduledStation.setOnClickListener(v -> {
             firingCal= Calendar.getInstance();
-            firingCal.set(Calendar.HOUR, 2); // At the hour you want to fire the alarm
-            firingCal.set(Calendar.MINUTE, 5); // alarm minute
+            firingCal.set(Calendar.HOUR, 8); // At the hour you want to fire the alarm
+            firingCal.set(Calendar.MINUTE, 52); // alarm minute
             firingCal.set(Calendar.SECOND, 0); // and alarm second
             long intendedTime = firingCal.getTimeInMillis();
 
             stopingCal= Calendar.getInstance();
-            stopingCal.set(Calendar.HOUR, 2); // At the hour you want to fire the alarm
-            stopingCal.set(Calendar.MINUTE,6); // alarm minute
+            stopingCal.set(Calendar.HOUR, 8); // At the hour you want to fire the alarm
+            stopingCal.set(Calendar.MINUTE,53); // alarm minute
             stopingCal.set(Calendar.SECOND, 0); // and alarm second
             long intendedStopTime = stopingCal.getTimeInMillis();
 
@@ -423,12 +415,18 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
             scheduledStation.setCountry("france");
             scheduledStation.setEndDate("10-06_2021");
             scheduledStation.setStartDate("9-06_2021");
-            scheduledStation.setStatus(SchedulerStatus.PENDING);
+            scheduledStation.setStatus(SchedulerStatus.PENDING.getStatus());
 
-            datasource.create(scheduledStation);
+            // datasource.create(scheduledStation);
+
+            lastinsertedId = datasource.create(scheduledStation);
+            intent.putExtra("lastinsertedId",lastinsertedId);
+
+            System.out.println("lastinsertedId: "+lastinsertedId);
 
             registerMyAlarmBroadcast();
             registerMyStopingAlarmBroadcast();
+
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, intendedTime, myPendingIntent);
@@ -525,9 +523,9 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
             }
         };
 
-        intent =new Intent("com.yannick.radioo");
+
         this.getActivity().registerReceiver(myBroadcastReceiver, new IntentFilter("com.yannick.radioo") );
-        myPendingIntent = PendingIntent.getBroadcast( this.getActivity(), 0, intent,PendingIntent.FLAG_UPDATE_CURRENT );
+        myPendingIntent = PendingIntent.getBroadcast( this.getActivity(), (int)lastinsertedId, intent,PendingIntent.FLAG_UPDATE_CURRENT );
 
         alarmManager = (AlarmManager)(context.getSystemService( Context.ALARM_SERVICE ));
     }
@@ -547,14 +545,14 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
                 SchedulerFragment.StopRecordAudioStreamTask stopaudiotask = new SchedulerFragment.StopRecordAudioStreamTask();
                 stopaudiotask.execute(new String[] { scheduledStation.getUrl() });
 
-
+                myPendingIntent.cancel();
 
             }
         };
 
         this.getActivity().registerReceiver(myStopinBroadcastReceiver, new IntentFilter("com.yannick.radioo") );
         //myStopingIntent = PendingIntent.getBroadcast( this.getActivity(), 1, intent,0 );
-        myStopingIntent = PendingIntent.getBroadcast( this.getActivity(), 1, new Intent("com.yannick.radioo"),PendingIntent.FLAG_UPDATE_CURRENT );
+        myStopingIntent = PendingIntent.getBroadcast( this.getActivity(), (int)lastinsertedId+10000, intent,PendingIntent.FLAG_UPDATE_CURRENT );
 
         alarmManagerStop = (AlarmManager)(this.getActivity().getSystemService( Context.ALARM_SERVICE ));
     }
@@ -577,9 +575,11 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
                 @Override
                 public void run() {
                     Log.i(TAG,"BroadcastReceiver::ok records!");
+                    // intent.putExtra("status","downloading");
                     //statusView.setText("downloading");
+                    scheduledStation.setStatus(SchedulerStatus.DOWNLOADING.getStatus());
+                    datasource.updateStation((int)intent.getLongExtra("lastinsertedId",0),scheduledStation);
 
-                    //if(station ==null) station = favourite;
                     try {
                         File directory = new File(context.getFilesDir() + File.separator + "MyPodcasts");
 
@@ -661,6 +661,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
             System.out.println("saveFaviconPath: "+saveFaviconPath);
             podcast.setFaviconUrl(saveFaviconPath);
             podcast.setFaviconUrl("http://www.0nradio.com/images/favicon/mstile-144x144.png");
+            datasource.updateStation((int)intent.getLongExtra("lastinsertedId",0),scheduledStation);
             intent.putExtra("podcast", podcast);
             intent.putExtra("startTime",startTime);
             // intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(saveFilePath)));
@@ -669,6 +670,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
     }
 
     private class StopRecordAudioStreamTask extends AsyncTask<String, Void, String> {
+        Podcast p= intent.getParcelableExtra("podcast");
         @Override
         protected String doInBackground(String... urls) {
             //Log.i(TAG,"BroadcastReceiver::ok stops recording!");
@@ -694,7 +696,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
                             //+"."+station.getCodec().toLowerCase());
                         }
 
-                        Podcast p= intent.getParcelableExtra("podcast");
+
                         System.out.println("podcast pathfile: "+podcast.getFileUrl());
                         podcast.setDate(new Date().toString());
                         if(saveFaviconPath==null)saveFaviconPath ="";
@@ -702,8 +704,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
                         podcast.setDuration(duration);
                         //Log.i(TAG,"BroadcastReceiver::saveFilePath 3"+podcast);
                         //System.out.println("podcast dan stop avant create: "+podcast);
-                        if(podcast.getFileUrl()!=null)
-                            datasource.create(podcast);
+
                         //String pathfile = intent.getStringExtra("podcast");
 
                         //   Uri file = intent.getParcelableExtra("Intent.EXTRA_STREAM");
@@ -733,6 +734,13 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
         @Override
         protected void onPostExecute(String result) {
             Log.v("RESULT",result);
+            PodcastDAO datasource = new PodcastDAO(context);
+            datasource.open();
+            if(podcast.getFileUrl()!=null)
+                datasource.create(podcast);
+            //intent.putExtra("status","finished");
+            //scheduledStation.setStatus(SchedulerStatus.FINISHED.getStatus());
+            //datasource.updateStation((int)intent.getLongExtra("lastinsertedId",0),scheduledStation);
 
 
             //isRecording = false;
@@ -840,7 +848,7 @@ public class SchedulerFragment extends Fragment implements  DatePickerDialog.OnD
 //
 
 
-                    //autoCompleteTextView
+    //autoCompleteTextView
 //                    AutoCompleteTextView textView = (AutoCompleteTextView)
 //                            findViewById(R.id.countries_list);
 //            @Override

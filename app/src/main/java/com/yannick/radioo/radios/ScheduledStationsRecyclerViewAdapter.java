@@ -69,13 +69,15 @@ public class ScheduledStationsRecyclerViewAdapter extends RecyclerView.Adapter<S
 //            holder.circularImageView.setImageResource(R.drawable.radio_default);
 //        }
 
-       // Intent intent = new Intent();
-       // String status = intent.getStringExtra("status");
+        // Intent intent = new Intent();
+        // String status = intent.getStringExtra("status");
         //System.out.println("on a pour status: "+status);
         holder.titleTextView.setText(mValues.get(position).getName());
 
+        System.out.println("on a pour scheduled: "+holder.mItem);
+
         //holder.statusTextView.setText(status);
-        holder.statusTextView.setText("waiting");
+        holder.statusTextView.setText(holder.mItem.getStatus());
 
         holder.deleteTextView.setText("X" );
 
@@ -99,6 +101,13 @@ public class ScheduledStationsRecyclerViewAdapter extends RecyclerView.Adapter<S
                 Log.v("Valeur scheduled id",""+(int)holder.mItem.getId());
                 PendingIntent pendingIntent = PendingIntent.getService(context, (int)holder.mItem.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+                System.out.println("pending intent: "+pendingIntent);
+                alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
+
+                pendingIntent = PendingIntent.getService(context, (int)holder.mItem.getId()+10000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                //alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
                 System.out.println("pending intent: "+pendingIntent);
                 alarmManager.cancel(pendingIntent);
@@ -130,7 +139,7 @@ public class ScheduledStationsRecyclerViewAdapter extends RecyclerView.Adapter<S
         public ViewHolder(View view) {
             super(view);
             mView = view;
-           // circularImageView = view.findViewById(R.id.track_image);
+            // circularImageView = view.findViewById(R.id.track_image);
             titleTextView = view.findViewById(R.id.item_title);
             statusTextView = view.findViewById(R.id.item_status);
             deleteTextView = view.findViewById(R.id.item_delete);
